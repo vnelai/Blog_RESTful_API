@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 const bodyParser = require("body-parser");
 const conn = require('./config/db')
 conn()
@@ -10,6 +10,10 @@ conn()
 //Route imports
 const users = require("./routes/users");
 const posts = require("./routes/posts");
+
+// Mount routers
+app.use("/users", users); 
+app.use("/posts", posts);  
 
 
 // Middleware to parse incoming requests

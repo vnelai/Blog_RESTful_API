@@ -40,25 +40,29 @@ router
     res.json(users);
   })
   .post((req, res) => {
-    const { name, username, email } = req.body;
-    if (!name || !username || !email) {
-      return res.json({ error: "Insufficient Data" });
+    const { username, email } = req.body;
+    if (!username || !email) {
+        return res.status(400).json({ error: "Insufficient Data" });
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: "Invalid email format" });
     }
 
     const userExists = users.some((u) => u.username === username);
     if (userExists) {
-      return res.json({ error: "Username Already Taken" });
+       return res.status(409).json({ error: "Username Already Taken" });
     }
 
     const newUser = {
       id: users[users.length - 1]?.id + 1 || 1,
-      name,
       username,
       email,
     };
 
     users.push(newUser);
-    res.json(newUser);
+    res.status(201).json(newUser);
   });
 
 module.exports = router;
