@@ -6,6 +6,9 @@ const bodyParser = require("body-parser");
 const conn = require('./config/db')
 conn()
 
+// Middleware to parse incoming requests
+app.use(bodyParser.json({ extended: true })); //This middleware is used to parse incoming JSON data.
+app.use(bodyParser.urlencoded({ extended: true })); //This middleware is used to parse URL-encoded data (like form submissions).
 
 //Route imports
 const users = require("./routes/users");
@@ -15,10 +18,6 @@ const posts = require("./routes/posts");
 app.use("/users", users); 
 app.use("/posts", posts);  
 
-
-// Middleware to parse incoming requests
-app.use(bodyParser.json({ extended: true })); //This middleware is used to parse incoming JSON data.
-app.use(bodyParser.urlencoded({ extended: true })); //This middleware is used to parse URL-encoded data (like form submissions).
 
 //Logging Middleware
 app.use((req, res, next) => {
@@ -38,14 +37,17 @@ function checkAuth(req, res, next) {
 
 
 
-
 // Error handling Middleware
 app.use((req, res) => {
     res.status(404);
     res.json({ error: "Resource Not Found" });
   });
   
-  
+  // Generic Error Handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal Server Error" });
+});
 
   app.listen(port, () => {
     console.log(`Server listening on port: ${port}.`);
