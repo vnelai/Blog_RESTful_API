@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const posts = require("../data/posts");
 
-
+ // Route to get, update, or delete a specific post by ID
 router
   .route("/:id")
   .get((req, res, next) => {
@@ -33,6 +33,8 @@ router
     }
   });
 
+
+  // Route to get all posts or create a new post 
 router
   .route("/")
   .get((req, res) => {

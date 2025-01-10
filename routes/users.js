@@ -3,7 +3,7 @@ const router = express.Router();
 const users = require("../data/users");
 
 
-
+//Routes to get, update, or delete users by id
 router
   .route("/:id")
   .get((req, res, next) => {
@@ -34,6 +34,7 @@ router
     }
   });
 
+//Routes to get all users or add new user
 router
   .route("/")
   .get((req, res) => {
