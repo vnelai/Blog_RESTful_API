@@ -38,7 +38,21 @@ router
 router
   .route("/")
   .get((req, res) => {
-    res.json(posts);
+    const { userId, title } = req.query;
+    let filteredPosts = posts;
+
+    // Filter by userId if provided in query params
+    if (userId) {
+      filteredPosts = filteredPosts.filter(post => post.userId == userId);
+    }
+
+    // Filter by title if provided in query params
+    if (title) {
+        filteredPosts = filteredPosts.filter(post => post.title.toLowerCase().includes(title.toLowerCase()));
+    }
+
+    // Respond with the filtered posts (or all posts if no filter is applied)
+    res.json(filteredPosts);
   })
   .post((req, res) => {
     const { userId, title, content } = req.body;
