@@ -1,4 +1,5 @@
-[
+//Comments Data
+let comments = [
     {
       "id": 1,
       "userId": 3,
@@ -60,3 +61,5 @@
       "content": "The resources you mentioned are perfect for getting into software development. Thanks for the recommendations!"
     }
   ]
+
+  module.exports = comments;

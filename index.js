@@ -13,10 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true })); //This middleware is used to
 //Route imports
 const users = require("./routes/users");
 const posts = require("./routes/posts");
+const comments = require("./routes/comments");
 
 // Mount routers
 app.use("/users", users); 
 app.use("/posts", posts);  
+app.use("/comments", comments);
 
 
 //Logging Middleware
