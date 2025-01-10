@@ -6,6 +6,9 @@ const bodyParser = require("body-parser");
 const conn = require('./config/db')
 conn()
 
+// Middleware to serve static files from public folder
+app.use(express.static('public'));
+
 // Middleware to parse incoming requests
 app.use(bodyParser.json({ extended: true })); //This middleware is used to parse incoming JSON data.
 app.use(bodyParser.urlencoded({ extended: true })); //This middleware is used to parse URL-encoded data (like form submissions).
